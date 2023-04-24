@@ -13,8 +13,8 @@ Author:
 import os.path
 import time
 import sys
-from tqdm import tqdm
 import asyncio
+from tqdm import tqdm
 import aiohttp
 import dns.resolver
 from aioretry import (
@@ -89,7 +89,7 @@ async def get(domain, session):
             url = "http://" + domain.strip()
             async with sem:
                 async with session.get(url=url, timeout=10) as response:
-                    resp = await response.read()
+                    await response.read()
                     if response.status == 404:
                         text = await response.text()
                         if "NoSuchBucket" in text:
@@ -114,12 +114,11 @@ async def get(domain, session):
         except Exception as expt:
             print(f'Unable to get url {domain.strip()} due to {expt.__class__}')
             errorfile.write("Error: " + domain.strip() + "\n")
-            pass
     else:
         print("Excluded:", domain.strip())
 
 
-async def main(domains):
+async def main():
     """The main function that calls the get and log progress in a tqdm progress bar."""
     async with aiohttp.ClientSession(headers=headers) as session:
         ret = [get(domain, session) for domain in domains]
@@ -138,7 +137,7 @@ with open(r"domains.txt", 'r', encoding="utf-8") as file:
         asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
     except Exception as e:
         pass
-    asyncio.run(main(domains))
+    asyncio.run(main())
     end = time.time()
 
 print(f'It took {end - start} seconds to query {COUNT} domains.')
