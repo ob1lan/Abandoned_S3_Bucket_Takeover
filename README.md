@@ -29,10 +29,10 @@ amass enum -active -src -brute -o amass-results.txt -d mydomain.com
 # Once amass finished finding all subdomains for the input domain
 cat amass-results.txt | awk -F ] '{print $2}' | sed -e 's/  */ /g' -e 's/^ *\(.*\) *$/\1/' > domains.txt
 ```
-### Using the Hunt-Abandoned-Bucket script
+### Using the script
 This is how you would use the script, given you installed all prerequisites modules and got a `domains.txt` file in the same directory as the script:
 ```sh
-python Hunt-Abandoned-Bucket.py
+python hunt_abandoned_bucket.py
 ```
 Once the script executed, the following files are created in the same directory:
 - __findings.txt__ : lists all records matching the criteria (returns a 404 and the common 'NoSuchBucket' page)
