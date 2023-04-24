@@ -1,5 +1,6 @@
 # Abandoned_S3_Bucket_Takeover
-Solution to hunt for possible subdomain takeover via abandoned Amazon S3 Bucket
+Solution to hunt for possible subdomain takeover via abandoned Amazon S3 Bucket. 
+This uses asynchronous requests to a given list of (sub)domains to search for a pattern 
 ## Prerequisites
 To install the prerequisite modules, use the requirements.txt file as follow:
 ```sh
