@@ -142,4 +142,6 @@ with open(r"domains.txt", 'r', encoding="utf-8") as file:
     end = time.time()
 
 print(f'It took {end - start} seconds to query {COUNT} domains.')
+
+file.close()
 errorfile.close()
