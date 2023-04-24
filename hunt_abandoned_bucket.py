@@ -132,8 +132,7 @@ with open(r"domains.txt", 'r', encoding="utf-8") as file:
     # In case the script is executed on a Windows machine, this is needed.
     try:
         asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-    except Exception as e:
-        print(e)
+    except AttributeError:
         pass
     asyncio.run(main())
     end = time.time()
