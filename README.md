@@ -1,6 +1,9 @@
 # Abandoned_S3_Bucket_Takeover
 Solution to hunt for possible subdomain takeover via abandoned Amazon S3 Bucket. 
-This uses asynchronous requests to a given list of (sub)domains to search for a pattern 
+This uses asynchronous requests (aiohttp) to a given list of (sub)domains to search for a pattern matching an abandoned Amazon S3 Bucket (404 page containing the keyword 'NoSuchBucket'). 
+
+![Hunt](https://user-images.githubusercontent.com/13363451/233985362-02e5474b-4825-4a27-9ce6-1bfc3edf7907.gif)
+
 ## Prerequisites
 To install the prerequisite modules, use the requirements.txt file as follow:
 ```sh
@@ -31,3 +34,8 @@ Once the script executed, the following files are created in the same directory:
 - __findings.txt__ : lists all records matching the criteria (returns a 404 and the common 'NoSuchBucket' page)
 - __errors.txt__ : lists all errors encountered by the script while querying the urls (timeout, TooManyRedirects, etc...)
 - __excluded.txt__ : you can use this file to exclude (sub)domains in future runs
+# Limiting concurrent requests
+The requests are limited with a Semaphore to avoid possible issues, the default value is 50 concurrent requests maximum. This can be changed by modifying the value of the 'sem' variable in the script:
+```python
+sem = asyncio.Semaphore(50)
+```
