@@ -11,7 +11,7 @@ git clone https://github.com/ob1lan/Abandoned_S3_Bucket_Takeover.git
 ```
 ## Usage
 ### The domains.txt file
-In order to use the script, you need to have a `domains.txt` file in the working directory. 
+In order to use the script, you need to have a `domains.txt` file, containing 1 domain per line, in the working directory. 
 This file can be easily generated with any tool of your liking, such as amas. 
 
 #### Example with amass
