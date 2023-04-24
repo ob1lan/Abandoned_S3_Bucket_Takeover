@@ -47,13 +47,16 @@ if not os.path.exists("domains.txt"):
 
 # Check if the errors.txt, excluded.txt and findings.txt files are present, if not, create them
 if not os.path.exists("errors.txt"):
-    open("errors.txt", 'w', encoding="utf-8").close()
+    with open("errors.txt", 'w', encoding="utf-8") as errorsfile:
+        errorsfile.close()        
 
 if not os.path.exists("excluded.txt"):
-    open("excluded.txt", 'w', encoding="utf-8").close()
+    with open("excluded.txt", 'w', encoding="utf-8") as excludedfile:
+        excludedfile.close()
 
 if not os.path.exists("findings.txt"):
-    open("findings.txt", 'w', encoding="utf-8").close()
+    with open("findings.txt", 'w', encoding="utf-8") as findingsfile:
+        findingsfile.close()
 
 # Count the number of lines in domains.txt. Variable 'count' will be used in progress bar
 with open(r"domains.txt", 'r', encoding="utf-8") as file:
