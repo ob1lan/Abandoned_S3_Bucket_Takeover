@@ -10,12 +10,12 @@ Author:
     Ob1lan - 22-APRIL-2023
 """
 
-import dns.resolver
+import os.path
+import time
 from tqdm import tqdm
 import asyncio
 import aiohttp
-import time
-import os.path
+import dns.resolver
 from aioretry import (
     retry,
     # Tuple[bool, Union[int, float]]
@@ -46,16 +46,16 @@ if not os.path.exists("domains.txt"):
 
 # Check if the errors.txt, excluded.txt and findings.txt files are present, if not, create them
 if not os.path.exists("errors.txt"):
-    open("errors.txt", 'w').close()
+    open("errors.txt", 'w', encoding="utf-8").close()
 
 if not os.path.exists("excluded.txt"):
-    open("excluded.txt", 'w').close()
+    open("excluded.txt", 'w', encoding="utf-8").close()
 
 if not os.path.exists("findings.txt"):
-    open("findings.txt", 'w').close()
+    open("findings.txt", 'w', encoding="utf-8").close()
 
 # Count the number of lines in domains.txt. Variable 'count' will be used in progress bar
-with open(r"domains.txt", 'r') as file:
+with open(r"domains.txt", 'r', encoding="utf-8") as file:
     COUNT = 0
     for line in file:
         if line != "\n":
@@ -73,11 +73,11 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) ' 
                   'Chrome/112.0.0.0 Safari/537.36'}
 
-with open("excluded.txt", 'r') as exclusions:
+with open("excluded.txt", 'r', encoding="utf-8") as exclusions:
     excluded = exclusions.read()
 exclusions.close()
 
-errorfile = open("errors.txt", "a")
+errorfile = open("errors.txt", "a", encoding="utf-8")
 
 
 @retry(retry_policy)
@@ -100,7 +100,7 @@ async def get(domain, session):
                                 dns.resolver.Answer = dns.resolver.resolve(domain.strip(), 'CNAME')
                             for rdata in answer:
                                 print(" ->", rdata)
-                            f = open("findings.txt", "a")
+                            f = open("findings.txt", "a", encoding="utf-8")
                             f.write(url + "\n")
                             f.close()
         except aiohttp.client_exceptions.ClientConnectorError:
@@ -129,7 +129,7 @@ async def main(domains):
 
 
 # Start the process and log the time it takes to complete it.
-with open(r"domains.txt", 'r') as file:
+with open(r"domains.txt", 'r', encoding="utf-8") as file:
     domains = file
     start = time.time()
     # In case the script is executed on a Windows machine, this is needed.
