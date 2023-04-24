@@ -1,0 +1,5 @@
+dnspython
+tqdm
+aiohttp
+aioretry
+asyncio
