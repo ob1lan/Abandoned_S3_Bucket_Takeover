@@ -43,3 +43,4 @@ sem = asyncio.Semaphore(50)
 - Improve the script and have it peer-reviewed
 - Take args to display help and possibly the location of the domains.txt, along with the Semaphore value
 - Verify the retry decoration actually work (doubts)
+- Containerize along with amass
