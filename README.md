@@ -8,14 +8,15 @@ This uses asynchronous requests (aiohttp) to a given list of (sub)domains to sea
 ![output-onlinegiftools](https://user-images.githubusercontent.com/13363451/233985879-ee726263-139e-4258-8d10-b3c22df05d80.gif)
 
 ## Prerequisites
-To install the prerequisite modules, use the requirements.txt file as follow:
-```sh
-pip install -r requirements.txt
-```
 To obtain the script, download this repo's content from GitHub:
 ```sh
 git clone https://github.com/ob1lan/Abandoned_S3_Bucket_Takeover.git
 ```
+To install the prerequisite modules, use the requirements.txt file as follow:
+```sh
+pip install -r requirements.txt
+```
+
 ## Usage
 ### The domains.txt file
 In order to use the script, you need to have a `domains.txt` file, containing 1 domain per line, in the working directory. 
