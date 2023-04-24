@@ -48,7 +48,7 @@ if not os.path.exists("domains.txt"):
 # Check if the errors.txt, excluded.txt and findings.txt files are present, if not, create them
 if not os.path.exists("errors.txt"):
     with open("errors.txt", 'w', encoding="utf-8") as errorsfile:
-        errorsfile.close()        
+        errorsfile.close()
 
 if not os.path.exists("excluded.txt"):
     with open("excluded.txt", 'w', encoding="utf-8") as excludedfile:
@@ -78,7 +78,8 @@ with open("excluded.txt", 'r', encoding="utf-8") as exclusions:
     excluded = exclusions.read()
 exclusions.close()
 
-errorfile = open("errors.txt", "a", encoding="utf-8")
+with open("errors.txt", "a", encoding="utf-8") as errorfile:
+    pass
 
 
 @retry(retry_policy)
