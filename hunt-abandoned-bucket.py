@@ -42,7 +42,7 @@ def retry_policy(info: RetryInfo) -> RetryPolicyStrategy:
 # Check if the domains.txt file is present in the working directory, if not, exit
 if not os.path.exists("domains.txt"):
     print("No domain.txt file detected.")
-    exit(1)
+    sys.exit(1)
 
 # Check if the errors.txt, excluded.txt and findings.txt files are present, if not, create them
 if not os.path.exists("errors.txt"):
@@ -56,22 +56,22 @@ if not os.path.exists("findings.txt"):
 
 # Count the number of lines in domains.txt. Variable 'count' will be used in progress bar
 with open(r"domains.txt", 'r') as file:
-    count = 0
+    COUNT = 0
     for line in file:
         if line != "\n":
-            count += 1
+            COUNT += 1
 file.close()
 
 # This Semaphore declaration limits the number of concurent requests, and prevents some errors
 sem = asyncio.Semaphore(50)
 
-# Function to print text in green, used when a finding is raised in the terminal
 def prgreen(skk): print("\033[92m {}\033[00m".format(skk))
+"""Function to print text in green, used when a finding is raised in the terminal"""
 
 
 headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 '
-                  'Safari/537.36'}
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) 
+                  'Chrome/112.0.0.0 Safari/537.36'}
 
 with open("excluded.txt", 'r') as exclusions:
     excluded = exclusions.read()
@@ -88,7 +88,7 @@ async def get(domain, session):
     """
     if domain.strip() not in excluded:
         try:
-            url = ("http://" + domain.strip())
+            url = "http://" + domain.strip()
             async with sem:
                 async with session.get(url=url, timeout=10) as response:
                     resp = await response.read()
@@ -96,7 +96,8 @@ async def get(domain, session):
                         text = await response.text()
                         if "NoSuchBucket" in text:
                             prgreen("Might be an Abandoned Amazon S3 Bucket:" + url)
-                            answer: dns.resolver.Answer = dns.resolver.resolve(domain.strip(), 'CNAME')
+                            answer: \
+                                dns.resolver.Answer = dns.resolver.resolve(domain.strip(), 'CNAME')
                             for rdata in answer:
                                 print(" ->", rdata)
                             f = open("findings.txt", "a")
@@ -139,6 +140,6 @@ with open(r"domains.txt", 'r') as file:
     asyncio.run(main(domains))
     end = time.time()
 
-print("It took {} seconds to query {} domains.".format(end - start, count))
+print("It took {} seconds to query {} domains.".format(end - start, COUNT))
 file.close()
 errorfile.close()
