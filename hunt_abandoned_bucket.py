@@ -98,9 +98,9 @@ async def get(domain, session):
                                 dns.resolver.Answer = dns.resolver.resolve(domain.strip(), 'CNAME')
                             for rdata in answer:
                                 print(" -> ", rdata)
-                            f = open("findings.txt", "a", encoding="utf-8")
-                            f.write(url + "\n")
-                            f.close()
+                            fidingsfile = open("findings.txt", "a", encoding="utf-8")
+                            fidingsfile.write(url + "\n")
+                            fidingsfile.close()
         except aiohttp.client_exceptions.ClientConnectorError:
             errorfile.write("ClientConnectorError: " + domain.strip() + "\n")
         except asyncio.exceptions.TimeoutError:
@@ -111,8 +111,8 @@ async def get(domain, session):
             errorfile.write("TooManyRedirects: " + domain.strip() + "\n")
         except aiohttp.client_exceptions.ServerDisconnectedError:
             errorfile.write("ServerDisconnectedError: " + domain.strip() + "\n")
-        except Exception as e:
-            print("Unable to get url {} due to {}.".format(domain.strip(), e.__class__))
+        except Exception as expt:
+            print(f'Unable to get url {domain.strip()} due to {expt.__class__}')
             errorfile.write("Error: " + domain.strip() + "\n")
             pass
     else:
@@ -141,6 +141,6 @@ with open(r"domains.txt", 'r', encoding="utf-8") as file:
     asyncio.run(main(domains))
     end = time.time()
 
-print("It took {} seconds to query {} domains.".format(end - start, COUNT))
+print(f'It took {end - start} seconds to query {COUNT} domains.')
 file.close()
 errorfile.close()
