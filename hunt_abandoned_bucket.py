@@ -119,10 +119,10 @@ async def main():
     """The main function that calls the get and log progress in a tqdm progress bar."""
     async with aiohttp.ClientSession(headers=headers) as session:
         ret = [get(domain, session) for domain in domains]
-        [await f for f in tqdm(asyncio.as_completed(ret),
-                               total=len(ret),
-                               desc="Progress",
-                               unit=" domains")]
+        return [await f for f in tqdm(asyncio.as_completed(ret),
+                                      total=len(ret),
+                                      desc="Progress",
+                                      unit=" domains")]
 
 
 # Start the process and log the time it takes to complete it.
