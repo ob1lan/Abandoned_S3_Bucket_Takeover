@@ -70,7 +70,8 @@ def prgreen(skk): print("\033[92m {}\033[00m".format(skk))
 
 
 headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36'}
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 '
+                  'Safari/537.36'}
 
 with open("excluded.txt", 'r') as exclusions:
     excluded = exclusions.read()
@@ -81,7 +82,7 @@ errorfile = open("errors.txt", "a")
 
 @retry(retry_policy)
 async def get(domain, session):
-    """Function that formats domains into URL and queries them asynchronously to hunt for 404 responses.
+    """Function that formats domains into URL and queries them async to hunt for 404 responses.
     Once a 404 response code is found, the function search for the NoSuchBucket keyword to determine
     whether it could be an abandoned Amazon S3 Bucket or not.
     """
