@@ -12,6 +12,7 @@ Author:
 
 import os.path
 import time
+import sys
 from tqdm import tqdm
 import asyncio
 import aiohttp
@@ -70,8 +71,8 @@ def prgreen(skk): print("\033[92m {}\033[00m".format(skk))
 
 
 headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) ' 
-                  'Chrome/112.0.0.0 Safari/537.36'}
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
+                  '(KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36'}
 
 with open("excluded.txt", 'r', encoding="utf-8") as exclusions:
     excluded = exclusions.read()
@@ -125,7 +126,10 @@ async def main(domains):
     """The main function that calls the get and log progress in a tqdm progress bar."""
     async with aiohttp.ClientSession(headers=headers) as session:
         ret = [get(domain, session) for domain in domains]
-        responses = [await f for f in tqdm(asyncio.as_completed(ret), total=len(ret), desc="Progress", unit=" domains")]
+        responses = [await f for f in tqdm(asyncio.as_completed(ret), 
+                                           total=len(ret), 
+                                           desc="Progress", 
+                                           unit=" domains")]
 
 
 # Start the process and log the time it takes to complete it.
