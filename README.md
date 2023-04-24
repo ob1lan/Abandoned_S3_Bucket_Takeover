@@ -1,5 +1,5 @@
 # Abandoned_S3_Bucket_Takeover
-[![Pylint](https://github.com/ob1lan/Abandoned_S3_Bucket_Takeover/actions/workflows/pylint.yml/badge.svg)](https://github.com/ob1lan/Abandoned_S3_Bucket_Takeover/actions/workflows/pylint.yml)  
+[![Pylint](https://github.com/ob1lan/Abandoned_S3_Bucket_Takeover/actions/workflows/pylint.yml/badge.svg)](https://github.com/ob1lan/Abandoned_S3_Bucket_Takeover/actions/workflows/pylint.yml)  [![CodeQL](https://github.com/ob1lan/Abandoned_S3_Bucket_Takeover/actions/workflows/codeql.yml/badge.svg)](https://github.com/ob1lan/Abandoned_S3_Bucket_Takeover/actions/workflows/codeql.yml)
 
 
 Solution to hunt for possible subdomain takeover via abandoned Amazon S3 Bucket.
