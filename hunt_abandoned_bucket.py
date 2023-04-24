@@ -111,9 +111,6 @@ async def get(domain, session):
             errorfile.write("TooManyRedirects: " + domain.strip() + "\n")
         except aiohttp.client_exceptions.ServerDisconnectedError:
             errorfile.write("ServerDisconnectedError: " + domain.strip() + "\n")
-        except Exception as expt:
-            print(f'Unable to get url {domain.strip()} due to {expt.__class__}')
-            errorfile.write("Error: " + domain.strip() + "\n")
     else:
         print("Excluded:", domain.strip())
 
@@ -122,10 +119,10 @@ async def main():
     """The main function that calls the get and log progress in a tqdm progress bar."""
     async with aiohttp.ClientSession(headers=headers) as session:
         ret = [get(domain, session) for domain in domains]
-        responses = [await f for f in tqdm(asyncio.as_completed(ret),
-                                           total=len(ret),
-                                           desc="Progress",
-                                           unit=" domains")]
+        [await f for f in tqdm(asyncio.as_completed(ret),
+                               total=len(ret),
+                               desc="Progress",
+                               unit=" domains")]
 
 
 # Start the process and log the time it takes to complete it.
@@ -136,6 +133,7 @@ with open(r"domains.txt", 'r', encoding="utf-8") as file:
     try:
         asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
     except Exception as e:
+        print(e)
         pass
     asyncio.run(main())
     end = time.time()
