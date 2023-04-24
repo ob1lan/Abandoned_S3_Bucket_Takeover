@@ -66,18 +66,20 @@ with open(r"domains.txt", 'r', encoding="utf-8") as file:
             COUNT += 1
 file.close()
 
-# This Semaphore declaration limits the number of concurent requests, and prevents some errors
+# This Semaphore declaration limits the number of concurrent requests, and prevents some errors
 sem = asyncio.Semaphore(50)
 
-
+# Set the header of the requests
 headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
                   '(KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36'}
 
+# Handles the excluded.txt file to populate the variable used to exclude domains to be checked
 with open("excluded.txt", 'r', encoding="utf-8") as exclusions:
     excluded = exclusions.read()
 exclusions.close()
 
+# Opens the errors.txt file here to avoid I/O issues within the async
 with open("errors.txt", "a", encoding="utf-8") as errorfile:
     pass
 
@@ -141,7 +143,9 @@ with open(r"domains.txt", 'r', encoding="utf-8") as file:
     asyncio.run(main())
     end = time.time()
 
+# Just for fun, so we know how long it took to query the domains
 print(f'It took {end - start} seconds to query {COUNT} domains.')
 
+# Close the files we opened previously
 file.close()
 errorfile.close()
