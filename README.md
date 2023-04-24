@@ -34,8 +34,12 @@ Once the script executed, the following files are created in the same directory:
 - __findings.txt__ : lists all records matching the criteria (returns a 404 and the common 'NoSuchBucket' page)
 - __errors.txt__ : lists all errors encountered by the script while querying the urls (timeout, TooManyRedirects, etc...)
 - __excluded.txt__ : you can use this file to exclude (sub)domains in future runs
-# Limiting concurrent requests
+## Limiting concurrent requests
 The requests are limited with a Semaphore to avoid possible issues, the default value is 50 concurrent requests maximum. This can be changed by modifying the value of the 'sem' variable in the script:
 ```python
 sem = asyncio.Semaphore(50)
 ```
+## To Do
+- Improve the script and have it peer-reviewed
+- Take args to display help and possibly the location of the domains.txt, along with the Semaphore value
+- Verify the retry decoration actually work (doubts)
