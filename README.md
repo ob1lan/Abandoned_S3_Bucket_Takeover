@@ -14,7 +14,7 @@ git clone https://github.com/ob1lan/Abandoned_S3_Bucket_Takeover.git
 In order to use the script, you need to have a `domains.txt` file in the working directory. 
 This file can be easily generated with any tool of your liking, such as amas. 
 
-Example with amass
+#### Example with amass
 ```bash
 amass enum -active -src -brute -o amass-results.txt -d mydomain.com
 
