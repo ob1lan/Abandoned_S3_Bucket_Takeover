@@ -5,6 +5,10 @@ To install the prerequisite modules, use the requirements.txt file as follow:
 ```bash
 pip install -r requirements.txt
 ```
+To obtain the script, download this repo's content from GitHub:
+```bash
+git clone https://github.com/ob1lan/Abandoned_S3_Bucket_Takeover.git
+```
 ## Usage
 ### The domains.txt file
 In order to use the script, you need to have a `domains.txt` file in the working directory. 
