@@ -13,6 +13,7 @@ Author:
 import os.path
 import time
 import sys
+import aiofiles
 import asyncio
 from tqdm import tqdm
 import aiohttp
@@ -45,18 +46,10 @@ if not os.path.exists("domains.txt"):
     print("No domain.txt file detected.")
     sys.exit(1)
 
-# Check if the errors.txt, excluded.txt and findings.txt files are present, if not, create them
-if not os.path.exists("errors.txt"):
-    with open("errors.txt", 'w', encoding="utf-8") as errorsfile:
-        errorsfile.close()
-
+# Check if the excluded.txt file is present, if not, create it
 if not os.path.exists("excluded.txt"):
     with open("excluded.txt", 'w', encoding="utf-8") as excludedfile:
         excludedfile.close()
-
-if not os.path.exists("findings.txt"):
-    with open("findings.txt", 'w', encoding="utf-8") as findingsfile:
-        findingsfile.close()
 
 # Count the number of lines in domains.txt. Variable 'count' will be used in progress bar
 with open(r"domains.txt", 'r', encoding="utf-8") as file:
@@ -79,9 +72,6 @@ with open("excluded.txt", 'r', encoding="utf-8") as exclusions:
     excluded = exclusions.read()
 exclusions.close()
 
-# Opens the errors.txt file here to avoid I/O issues within the async
-errorfile = open("errors.txt", "a", encoding="utf-8")
-
 
 @retry(retry_policy)
 async def get(domain, session):
@@ -103,19 +93,24 @@ async def get(domain, session):
                                 dns.resolver.Answer = dns.resolver.resolve(domain.strip(), 'CNAME')
                             for rdata in answer:
                                 print(" -> ", rdata)
-                            fidingsfile = open("findings.txt", "a", encoding="utf-8")
-                            fidingsfile.write(url + "\n")
-                            fidingsfile.close()
+                            findingsfile = open("findings.txt", "a", encoding="utf-8")
+                            findingsfile.write(url + "\n")
+                            findingsfile.close()
         except aiohttp.client_exceptions.ClientConnectorError:
-            errorfile.write("ClientConnectorError: " + domain.strip() + "\n")
+            async with aiofiles.open("errors.txt", mode='a') as errorfile:
+                await errorfile.write("ClientConnectorError: " + domain.strip() + "\n")
         except asyncio.exceptions.TimeoutError:
-            errorfile.write("TimeoutError: " + domain.strip() + "\n")
+            async with aiofiles.open("errors.txt", mode='a') as errorfile:
+                await errorfile.write("TimeoutError: " + domain.strip() + "\n")
         except aiohttp.client_exceptions.ClientOSError:
-            errorfile.write("ClientOSError: " + domain.strip() + "\n")
+            async with aiofiles.open("errors.txt", mode='a') as errorfile:
+                await errorfile.write("ClientOSError: " + domain.strip() + "\n")
         except aiohttp.client_exceptions.TooManyRedirects:
-            errorfile.write("TooManyRedirects: " + domain.strip() + "\n")
+            async with aiofiles.open("errors.txt", mode='a') as errorfile:
+                await errorfile.write("TooManyRedirects: " + domain.strip() + "\n")
         except aiohttp.client_exceptions.ServerDisconnectedError:
-            errorfile.write("ServerDisconnectedError: " + domain.strip() + "\n")
+            async with aiofiles.open("errors.txt", mode='a') as errorfile:
+                await errorfile.write("ServerDisconnectedError: " + domain.strip() + "\n")
     else:
         print("Excluded:", domain.strip())
 
@@ -145,6 +140,5 @@ with open(r"domains.txt", 'r', encoding="utf-8") as file:
 # Just for fun, so we know how long it took to query the domains
 print(f'It took {end - start} seconds to query {COUNT} domains.')
 
-# Close the files we opened previously
+# Close the file(s) we opened previously
 file.close()
-errorfile.close()
