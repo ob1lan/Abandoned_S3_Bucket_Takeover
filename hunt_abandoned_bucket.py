@@ -80,8 +80,7 @@ with open("excluded.txt", 'r', encoding="utf-8") as exclusions:
 exclusions.close()
 
 # Opens the errors.txt file here to avoid I/O issues within the async
-with open("errors.txt", "a", encoding="utf-8") as errorfile:
-    pass
+errorfile = open("errors.txt", "a", encoding="utf-8")
 
 
 @retry(retry_policy)
