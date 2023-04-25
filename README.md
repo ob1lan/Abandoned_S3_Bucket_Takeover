@@ -3,7 +3,7 @@
 
 Solution to hunt for possible subdomain takeover via abandoned Amazon S3 Bucket.
 
-This uses asynchronous requests (aiohttp) to a given list of (sub)domains to search for a pattern matching an abandoned Amazon S3 Bucket (404 page containing the keyword `NoSuchBucket`). 
+This uses asynchronous requests (aiohttp) to a given list of (sub)domains and search for a pattern matching an abandoned Amazon S3 Bucket (404 page containing the keyword `NoSuchBucket`). 
 
 ![output-onlinegiftools (1)](https://user-images.githubusercontent.com/13363451/234264263-36c03a56-b5f8-4f85-8418-04c799956d4f.gif)
 
