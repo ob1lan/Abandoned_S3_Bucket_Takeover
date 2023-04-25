@@ -13,8 +13,8 @@ Author:
 import os.path
 import time
 import sys
-import aiofiles
 import asyncio
+import aiofiles
 from tqdm import tqdm
 import aiohttp
 import dns.resolver
