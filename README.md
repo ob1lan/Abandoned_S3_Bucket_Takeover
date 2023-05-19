@@ -1,7 +1,7 @@
 # Abandoned_S3_Bucket_Takeover
 [![Pylint](https://github.com/ob1lan/Abandoned_S3_Bucket_Takeover/actions/workflows/pylint.yml/badge.svg)](https://github.com/ob1lan/Abandoned_S3_Bucket_Takeover/actions/workflows/pylint.yml)  [![CodeQL](https://github.com/ob1lan/Abandoned_S3_Bucket_Takeover/actions/workflows/codeql.yml/badge.svg)](https://github.com/ob1lan/Abandoned_S3_Bucket_Takeover/actions/workflows/codeql.yml)  [![Bandit](https://github.com/ob1lan/Abandoned_S3_Bucket_Takeover/actions/workflows/bandit.yml/badge.svg)](https://github.com/ob1lan/Abandoned_S3_Bucket_Takeover/actions/workflows/bandit.yml)  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://raw.githubusercontent.com/ob1lan/Abandoned_S3_Bucket_Takeover/main/LICENSE)
 
-![image](https://github.com/ob1lan/Abandoned_S3_Bucket_Takeover/assets/13363451/ca813f64-de74-4f4c-aea1-764aaf809a0d)
+![image](https://github.com/ob1lan/Abandoned_S3_Bucket_Takeover/assets/13363451/5ca4d487-f311-4a72-9e0d-a30827acd45c)
 
 ## Overview
 Solution to hunt for possible subdomain takeover via abandoned Amazon S3 Bucket.
