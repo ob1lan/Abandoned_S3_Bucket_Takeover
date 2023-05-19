@@ -2,7 +2,7 @@
 [![Pylint](https://github.com/ob1lan/Abandoned_S3_Bucket_Takeover/actions/workflows/pylint.yml/badge.svg)](https://github.com/ob1lan/Abandoned_S3_Bucket_Takeover/actions/workflows/pylint.yml)  [![CodeQL](https://github.com/ob1lan/Abandoned_S3_Bucket_Takeover/actions/workflows/codeql.yml/badge.svg)](https://github.com/ob1lan/Abandoned_S3_Bucket_Takeover/actions/workflows/codeql.yml)  [![Bandit](https://github.com/ob1lan/Abandoned_S3_Bucket_Takeover/actions/workflows/bandit.yml/badge.svg)](https://github.com/ob1lan/Abandoned_S3_Bucket_Takeover/actions/workflows/bandit.yml)  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://raw.githubusercontent.com/ob1lan/Abandoned_S3_Bucket_Takeover/main/LICENSE)
 
 <img width="500" alt="Ob1lan_an_abandoned_Amazon_S3_Bucket_filled_with_gold_and_jewel_774d1433-858f-49cb-849e-84c9bdf4781c" src="https://github.com/ob1lan/Abandoned_S3_Bucket_Takeover/assets/13363451/eac38d8f-e12d-4338-875e-a573a021091c">
-
+## Overview
 Solution to hunt for possible subdomain takeover via abandoned Amazon S3 Bucket.
 
 This uses asynchronous requests (aiohttp) to a given list of (sub)domains and search for a pattern matching an abandoned Amazon S3 Bucket (404 page containing the keyword `NoSuchBucket`). 
