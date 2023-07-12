@@ -140,5 +140,5 @@ with open(r"domains.txt", 'r', encoding="utf-8") as file:
 # Just for fun, so we know how long it took to query the domains
 print(f'It took {end - start} seconds to query {COUNT} domains.')
 
-# Close the file(s) we opened previously
+# Close the file(s) we opened previously (might not be needed)
 file.close()
