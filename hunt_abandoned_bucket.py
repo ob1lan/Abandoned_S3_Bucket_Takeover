@@ -90,10 +90,12 @@ async def get(domain, session):
                         if "NoSuchBucket" in text:
                             print("Might be an Abandoned Amazon S3 Bucket: ", url)
                             answer: \
-                                dns.resolver.Answer = dns.resolver.resolve(domain.strip(), 'CNAME')
+                                dns.resolver.Answer = dns.resolver.resolve(
+                                    domain.strip(), 'CNAME')
                             for rdata in answer:
                                 print(" -> ", rdata)
-                            findingsfile = open("findings.txt", "a", encoding="utf-8")
+                            findingsfile = open(
+                                "findings.txt", "a", encoding="utf-8")
                             findingsfile.write(url + "\n")
                             findingsfile.close()
         except aiohttp.client_exceptions.ClientConnectorError:
