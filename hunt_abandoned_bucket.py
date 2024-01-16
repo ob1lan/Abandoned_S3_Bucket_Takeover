@@ -60,7 +60,7 @@ with open(r"domains.txt", 'r', encoding="utf-8") as file:
 file.close()
 
 # This Semaphore declaration limits the number of concurrent requests, and prevents some errors
-sem = asyncio.Semaphore(50)
+sem = asyncio.Semaphore(15)
 
 # Set the header of the requests
 headers = {
