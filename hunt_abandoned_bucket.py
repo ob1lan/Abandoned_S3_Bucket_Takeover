@@ -63,7 +63,7 @@ with open(r"domains.txt", 'r', encoding="utf-8") as file:
 file.close()
 
 # This Semaphore declaration limits the number of concurrent requests, and prevents some errors
-sem = asyncio.Semaphore(20)
+sem = asyncio.Semaphore(35)
 
 # Set the header of the requests
 headers = {
@@ -101,21 +101,10 @@ async def get(domain, session):
                                 "findings.txt", "a", encoding="utf-8")
                             findingsfile.write(url + "\n")
                             findingsfile.close()
-        except aiohttp.client_exceptions.ClientConnectorError:
+        except (aiohttp.ClientConnectorError, asyncio.TimeoutError, aiohttp.ClientOSError,
+                aiohttp.ClientResponseError, aiohttp.ClientError, UnicodeError) as e:
             async with aiofiles.open("errors.txt", mode='a') as errorfile:
-                await errorfile.write("ClientConnectorError: " + domain.strip() + "\n")
-        except asyncio.exceptions.TimeoutError:
-            async with aiofiles.open("errors.txt", mode='a') as errorfile:
-                await errorfile.write("TimeoutError: " + domain.strip() + "\n")
-        except aiohttp.client_exceptions.ClientOSError:
-            async with aiofiles.open("errors.txt", mode='a') as errorfile:
-                await errorfile.write("ClientOSError: " + domain.strip() + "\n")
-        except aiohttp.client_exceptions.TooManyRedirects:
-            async with aiofiles.open("errors.txt", mode='a') as errorfile:
-                await errorfile.write("TooManyRedirects: " + domain.strip() + "\n")
-        except aiohttp.client_exceptions.ServerDisconnectedError:
-            async with aiofiles.open("errors.txt", mode='a') as errorfile:
-                await errorfile.write("ServerDisconnectedError: " + domain.strip() + "\n")
+                await errorfile.write(f"{type(e).__name__}: {domain.strip()}\n")
     else:
         print("Excluded:", domain.strip())
 
