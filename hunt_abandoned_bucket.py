@@ -40,8 +40,6 @@ def retry_policy(info: RetryInfo) -> RetryPolicyStrategy:
     """
     if info.fails <= 5:
         return False, (info.fails - 1) % 3 * 0.1 if info.fails != 5 else 0.5
-    else:
-        return True, 0
 
 
 # Check if the domains.txt file is present in the working directory, if not, exit
