@@ -29,17 +29,16 @@ from aioretry import (
 # Defines the retry policy used by aioretry
 def retry_policy(info: RetryInfo) -> RetryPolicyStrategy:
     """
-    - It will retry up to 5 times
+    - It will always retry until succeeded
     - If fails for the first time, it will retry immediately,
     - If it fails again,
-        aioretry will perform a 100ms delay before the second retry,
-        200ms delay before the 3rd retry,
-        the 4th retry immediately,
-        500ms delay before the 5th retry,
-        etc...
+      aioretry will perform a 100ms delay before the second retry,
+      200ms delay before the 3rd retry,
+      the 4th retry immediately,
+      100ms delay before the 5th retry,
+      etc...
     """
-    if info.fails <= 5:
-        return False, (info.fails - 1) % 3 * 0.1 if info.fails != 5 else 0.5
+    return False, (info.fails - 1) % 3 * 0.1
 
 
 # Check if the domains.txt file is present in the working directory, if not, exit
@@ -61,7 +60,7 @@ with open(r"domains.txt", 'r', encoding="utf-8") as file:
 file.close()
 
 # This Semaphore declaration limits the number of concurrent requests, and prevents some errors
-sem = asyncio.Semaphore(35)
+sem = asyncio.Semaphore(30)
 
 # Set the header of the requests
 headers = {
