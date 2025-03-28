@@ -46,8 +46,3 @@ The requests are limited with a Semaphore to avoid possible issues, the default 
 ```python
 sem = asyncio.Semaphore(50)
 ```
-## To Do
-- Improve the script and have it peer-reviewed
-- Take args to display help and set the location of the domains.txt, along with the Semaphore value
-- Verify the retry decoration actually work (doubts)
-- Containerize along with amass
